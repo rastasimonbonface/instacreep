@@ -15,7 +15,9 @@ then
       mapfile -t links < <(wget --quiet -O - "https://www.instagram.com/${username}/media" | sed -e 's/standard/\n/g' | sed -e 's/_resolution": {"url": "//g'| grep -v status | sed -e 's/".*//g' -e 's/\\//g')
       for i in "${links[@]}"
       do
-            wget --quiet -nc "${i%%\?*}"
+            filename=$(basename "${i%%\?*}")
+            wget -nc "https://scontent-fra3-1.cdninstagram.com//$filename"
+            echo "https://scontent-fra3-1.cdninstagram.com//$filename"
       done
    fi
 else
